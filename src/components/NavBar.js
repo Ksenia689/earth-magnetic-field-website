@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './NavBar.css';
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isExperimentsDropdownOpen, setIsExperimentsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const experimentsDropdownRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -10,33 +14,133 @@ const NavBar = () => {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+    setIsDropdownOpen(false);
+    setIsExperimentsDropdownOpen(false);
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleExperimentsDropdown = () => {
+    setIsExperimentsDropdownOpen(!isExperimentsDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+      if (experimentsDropdownRef.current && !experimentsDropdownRef.current.contains(event.target)) {
+        setIsExperimentsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-brand">
-          <h2>Earth Magnetic Field</h2>
+          <h2>Магнітне поле Землі</h2>
         </div>
         
         <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-          <li className="navbar-item">
+          <li className="navbar-item dropdown" ref={dropdownRef}>
             <a 
-              href="#home" 
-              className="navbar-link"
-              onClick={closeMenu}
+              href="#knowledge-base" 
+              className="navbar-link dropdown-toggle"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleDropdown();
+              }}
             >
-              Home
+              База знань ▼
             </a>
+            <ul className={`dropdown-menu ${isDropdownOpen ? 'active' : ''}`}>
+              <li className="dropdown-item">
+                <a 
+                  href="#origin" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Походження магнітного поля
+                </a>
+              </li>
+              <li className="dropdown-item">
+                <a 
+                  href="#measurement" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Методи вимірювання
+                </a>
+              </li>
+              <li className="dropdown-item">
+                <a 
+                  href="#anomalies" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Магнітні аномалії
+                </a>
+              </li>
+              <li className="dropdown-item">
+                <a 
+                  href="#aurora" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Полярні сяйва
+                </a>
+              </li>
+            </ul>
           </li>
-          <li className="navbar-item">
+          <li className="navbar-item dropdown" ref={experimentsDropdownRef}>
             <a 
-              href="#about" 
-              className="navbar-link"
-              onClick={closeMenu}
+              href="#experiments" 
+              className="navbar-link dropdown-toggle"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleExperimentsDropdown();
+              }}
             >
-              About
+              Експерименти онлайн ▼
             </a>
+            <ul className={`dropdown-menu ${isExperimentsDropdownOpen ? 'active' : ''}`}>
+              <li className="dropdown-item">
+                <a 
+                  href="#horizon-simulator" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Симулятор горизонту
+                </a>
+              </li>
+              <li className="dropdown-item">
+                <a 
+                  href="#magnetic-anomalies-map" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Карта магнітних аномалій
+                </a>
+              </li>
+              <li className="dropdown-item">
+                <a 
+                  href="#earth-magnetic-field" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Магнітне поле Землі
+                </a>
+              </li>
+            </ul>
           </li>
           <li className="navbar-item">
             <a 
@@ -44,7 +148,7 @@ const NavBar = () => {
               className="navbar-link"
               onClick={closeMenu}
             >
-              Magnetic Field
+              Тести та завдання
             </a>
           </li>
           <li className="navbar-item">
@@ -53,7 +157,7 @@ const NavBar = () => {
               className="navbar-link"
               onClick={closeMenu}
             >
-              Visualization
+              Особистий кабінет
             </a>
           </li>
           <li className="navbar-item">
@@ -63,15 +167,6 @@ const NavBar = () => {
               onClick={closeMenu}
             >
               Data
-            </a>
-          </li>
-          <li className="navbar-item">
-            <a 
-              href="#contact" 
-              className="navbar-link"
-              onClick={closeMenu}
-            >
-              Contact
             </a>
           </li>
         </ul>

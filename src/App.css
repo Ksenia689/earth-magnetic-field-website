@@ -1,5 +1,59 @@
 .App {
   text-align: center;
+  background-color: white;
+  min-height: 100vh;
+}
+
+.main-content {
+  margin: 2rem;
+  padding: 2rem;
+}
+
+.content-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.side-image {
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.fullscreen-image {
+  width: 100vw;
+  height: 80vh; /* Reduced height to 80% of viewport height */
+  object-fit: cover;
+  display: block;
+}
+
+.description-text {
+  color: black;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: justify;
+  flex: 1;
+}
+
+.gif-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.magnetic-field-gif {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
 
 .App-logo {
