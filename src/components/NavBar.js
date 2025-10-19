@@ -93,20 +93,11 @@ const NavBar = () => {
               </li>
               <li className="dropdown-item">
                 <a 
-                  href="#anomalies" 
+                  href="#topic3" 
                   className="dropdown-link"
                   onClick={closeMenu}
                 >
                   Магнітні аномалії
-                </a>
-              </li>
-              <li className="dropdown-item">
-                <a 
-                  href="#aurora" 
-                  className="dropdown-link"
-                  onClick={closeMenu}
-                >
-                  Полярні сяйва
                 </a>
               </li>
             </ul>

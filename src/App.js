@@ -3,8 +3,10 @@ import './App.css';
 import NavBar from './components/NavBar';
 import Topic1 from './pages/topic1';
 import Topic2 from './pages/topic2';
+import Topic3 from './pages/topic3';
 import Test1 from './pages/test1';
 import Test2 from './pages/test2';
+import Test3 from './pages/test3';
 import magneticFieldImage from './img/main2.png';
 import magneticFieldGif from './img/Rotating-Earth-Magnetic-Field.gif';
 
@@ -19,10 +21,14 @@ function App() {
         setCurrentPage('origin');
       } else if (hash === 'measurement') {
         setCurrentPage('measurement');
+      } else if (hash === 'topic3') {
+        setCurrentPage('topic3');
       } else if (hash === 'test1') {
         setCurrentPage('test1');
       } else if (hash === 'test2') {
         setCurrentPage('test2');
+      } else if (hash === 'test3') {
+        setCurrentPage('test3');
       } else {
         setCurrentPage('home');
       }
@@ -47,12 +53,20 @@ function App() {
     return <Topic2 />;
   }
   
+  if (currentPage === 'topic3') {
+    return <Topic3 />;
+  }
+  
   if (currentPage === 'test1') {
     return <Test1 />;
   }
   
   if (currentPage === 'test2') {
     return <Test2 />;
+  }
+  
+  if (currentPage === 'test3') {
+    return <Test3 />;
   }
   return (
     <div className="App">
