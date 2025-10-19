@@ -1,18 +1,23 @@
 {
   "files": {
-    "main.css": "/earth-magnetic-field-website/static/css/main.e46254b0.css",
-    "main.js": "/earth-magnetic-field-website/static/js/main.c4dc99b3.js",
+    "main.css": "/earth-magnetic-field-website/static/css/main.29cd92d5.css",
+    "main.js": "/earth-magnetic-field-website/static/js/main.7c83593f.js",
     "static/js/453.d7083056.chunk.js": "/earth-magnetic-field-website/static/js/453.d7083056.chunk.js",
     "static/media/Rotating-Earth-Magnetic-Field.gif": "/earth-magnetic-field-website/static/media/Rotating-Earth-Magnetic-Field.aa67e9868545cf8e4da7.gif",
+    "static/media/m4.png": "/earth-magnetic-field-website/static/media/m4.0ae568368db17aabe613.png",
+    "static/media/m3.jpg": "/earth-magnetic-field-website/static/media/m3.fdc8287c00f666d7a8ad.jpg",
+    "static/media/m1.png": "/earth-magnetic-field-website/static/media/m1.348755cd780f69f7f21f.png",
+    "static/media/core.jpg": "/earth-magnetic-field-website/static/media/core.eaa295d0f49e979e4420.jpg",
+    "static/media/field.jpg": "/earth-magnetic-field-website/static/media/field.58566103cd5926673639.jpg",
     "static/media/main2.png": "/earth-magnetic-field-website/static/media/main2.45462ad89efe80dec36b.png",
-    "static/media/logo.svg": "/earth-magnetic-field-website/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/m2.webp": "/earth-magnetic-field-website/static/media/m2.deb6f437ffe9bc5330c7.webp",
     "index.html": "/earth-magnetic-field-website/index.html",
-    "main.e46254b0.css.map": "/earth-magnetic-field-website/static/css/main.e46254b0.css.map",
-    "main.c4dc99b3.js.map": "/earth-magnetic-field-website/static/js/main.c4dc99b3.js.map",
+    "main.29cd92d5.css.map": "/earth-magnetic-field-website/static/css/main.29cd92d5.css.map",
+    "main.7c83593f.js.map": "/earth-magnetic-field-website/static/js/main.7c83593f.js.map",
     "453.d7083056.chunk.js.map": "/earth-magnetic-field-website/static/js/453.d7083056.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e46254b0.css",
-    "static/js/main.c4dc99b3.js"
+    "static/css/main.29cd92d5.css",
+    "static/js/main.7c83593f.js"
   ]
 }
