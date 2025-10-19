@@ -5,8 +5,10 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isExperimentsDropdownOpen, setIsExperimentsDropdownOpen] = useState(false);
+  const [isTestsDropdownOpen, setIsTestsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const experimentsDropdownRef = useRef(null);
+  const testsDropdownRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -16,6 +18,7 @@ const NavBar = () => {
     setIsMenuOpen(false);
     setIsDropdownOpen(false);
     setIsExperimentsDropdownOpen(false);
+    setIsTestsDropdownOpen(false);
   };
 
   const toggleDropdown = () => {
@@ -26,6 +29,10 @@ const NavBar = () => {
     setIsExperimentsDropdownOpen(!isExperimentsDropdownOpen);
   };
 
+  const toggleTestsDropdown = () => {
+    setIsTestsDropdownOpen(!isTestsDropdownOpen);
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -34,6 +41,9 @@ const NavBar = () => {
       }
       if (experimentsDropdownRef.current && !experimentsDropdownRef.current.contains(event.target)) {
         setIsExperimentsDropdownOpen(false);
+      }
+      if (testsDropdownRef.current && !testsDropdownRef.current.contains(event.target)) {
+        setIsTestsDropdownOpen(false);
       }
     };
 
@@ -142,14 +152,46 @@ const NavBar = () => {
               </li>
             </ul>
           </li>
-          <li className="navbar-item">
+          <li className="navbar-item dropdown" ref={testsDropdownRef}>
             <a 
-              href="#magnetic-field" 
-              className="navbar-link"
-              onClick={closeMenu}
+              href="#tests" 
+              className="navbar-link dropdown-toggle"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleTestsDropdown();
+              }}
             >
-              Тести та завдання
+              Тести та завдання ▼
             </a>
+            <ul className={`dropdown-menu ${isTestsDropdownOpen ? 'active' : ''}`}>
+              <li className="dropdown-item">
+                <a 
+                  href="#test1" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Тест 1
+                </a>
+              </li>
+              <li className="dropdown-item">
+                <a 
+                  href="#test2" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Тест 2
+                </a>
+              </li>
+              <li className="dropdown-item">
+                <a 
+                  href="#test3" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Тест 3
+                </a>
+              </li>
+            </ul>
           </li>
           <li className="navbar-item">
             <a 

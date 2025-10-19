@@ -1,10 +1,45 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import NavBar from './components/NavBar';
+import Topic1 from './pages/topic1';
+import Test1 from './pages/test1';
 import magneticFieldImage from './img/main2.png';
 import magneticFieldGif from './img/Rotating-Earth-Magnetic-Field.gif';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  useEffect(() => {
+    // Listen for hash changes to navigate between pages
+    const handleHashChange = () => {
+      const hash = window.location.hash.substring(1);
+      if (hash === 'origin') {
+        setCurrentPage('origin');
+      } else if (hash === 'test1') {
+        setCurrentPage('test1');
+      } else {
+        setCurrentPage('home');
+      }
+    };
+
+    // Check initial hash
+    handleHashChange();
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
+  if (currentPage === 'origin') {
+    return <Topic1 />;
+  }
+  
+  if (currentPage === 'test1') {
+    return <Test1 />;
+  }
   return (
     <div className="App">
       <NavBar />
