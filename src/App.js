@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import NavBar from './components/NavBar';
 import Topic1 from './pages/topic1';
+import Topic2 from './pages/topic2';
 import Test1 from './pages/test1';
+import Test2 from './pages/test2';
 import magneticFieldImage from './img/main2.png';
 import magneticFieldGif from './img/Rotating-Earth-Magnetic-Field.gif';
 
@@ -15,8 +17,12 @@ function App() {
       const hash = window.location.hash.substring(1);
       if (hash === 'origin') {
         setCurrentPage('origin');
+      } else if (hash === 'measurement') {
+        setCurrentPage('measurement');
       } else if (hash === 'test1') {
         setCurrentPage('test1');
+      } else if (hash === 'test2') {
+        setCurrentPage('test2');
       } else {
         setCurrentPage('home');
       }
@@ -37,8 +43,16 @@ function App() {
     return <Topic1 />;
   }
   
+  if (currentPage === 'measurement') {
+    return <Topic2 />;
+  }
+  
   if (currentPage === 'test1') {
     return <Test1 />;
+  }
+  
+  if (currentPage === 'test2') {
+    return <Test2 />;
   }
   return (
     <div className="App">
