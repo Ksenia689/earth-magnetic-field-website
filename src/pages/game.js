@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import NavBar from '../components/NavBar';
 import './topic1.css';
+import { saveGameResult } from '../utils/accountUtils';
 
 const MissionAuroraGame = () => {
   const [gameState, setGameState] = useState('intro'); // intro, phase1, phase2, phase3, victory, failure
@@ -93,6 +94,14 @@ const MissionAuroraGame = () => {
       return () => clearTimeout(timer);
     } else if (gameState === 'phase1' && timeLeft <= 0) {
       setFailureReason('phase1-timeout');
+      
+      // Save failure result to account if user is logged in
+      saveGameResult(score, 1, false, {
+        failureReason: 'phase1-timeout',
+        anomaliesFound: anomaliesFound,
+        gameType: 'Mission Aurora'
+      });
+      
       setGameState('failure');
     }
     
@@ -102,9 +111,18 @@ const MissionAuroraGame = () => {
       return () => clearTimeout(timer);
     } else if (gameState === 'phase2' && phase2Timer <= 0) {
       setFailureReason('phase2-timeout');
+      
+      // Save failure result to account if user is logged in
+      saveGameResult(score, 2, false, {
+        failureReason: 'phase2-timeout',
+        anomaliesFound: anomaliesFound,
+        phase2Step: phase2Step,
+        gameType: 'Mission Aurora'
+      });
+      
       setGameState('failure');
     }
-  }, [gameState, timeLeft, phase2Timer]);
+  }, [gameState, timeLeft, phase2Timer, score, anomaliesFound, phase2Step]);
 
   // Storm intensity fluctuation for Phase 3
   useEffect(() => {
@@ -299,6 +317,16 @@ const MissionAuroraGame = () => {
       
       if (outOfAttempts) {
         setFailureReason('phase2');
+        
+        // Save failure result to account if user is logged in
+        saveGameResult(score, 2, false, {
+          failureReason: 'phase2',
+          measurementType: type,
+          anomaliesFound: anomaliesFound,
+          phase2Step: phase2Step,
+          gameType: 'Mission Aurora'
+        });
+        
         setGameState('failure');
       }
       // Otherwise, player can try again (show feedback but don't fail yet)
@@ -332,10 +360,28 @@ const MissionAuroraGame = () => {
         const newBadges = ['🧭 Field Explorer'];
         if (finalScore >= 90) newBadges.push('🛰 Magnetic Guardian');
         setBadges(newBadges);
+        
+        // Save game result to account if user is logged in
+        saveGameResult(finalScore, 3, true, {
+          badges: newBadges,
+          anomaliesFound: anomaliesFound,
+          phase2Step: phase2Step,
+          gameType: 'Mission Aurora'
+        });
+        
         setGameState('victory');
       }, 1000);
     } else if (stabilizeAttempts >= 2) {
       setFailureReason('phase3');
+      
+      // Save failure result to account if user is logged in
+      saveGameResult(score, 3, false, {
+        failureReason: 'phase3',
+        anomaliesFound: anomaliesFound,
+        phase2Step: phase2Step,
+        gameType: 'Mission Aurora'
+      });
+      
       setGameState('failure');
     }
   };

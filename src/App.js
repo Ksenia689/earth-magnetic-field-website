@@ -10,6 +10,7 @@ import Test3 from './pages/test3';
 import HorizonSimulator from './pages/horizon';
 import MagneticAnomalyMap from './pages/map';
 import MissionAuroraGame from './pages/game';
+import Account from './pages/account';
 import magneticFieldImage from './img/main2.png';
 import magneticFieldGif from './img/Rotating-Earth-Magnetic-Field.gif';
 
@@ -38,6 +39,8 @@ function App() {
         setCurrentPage('test2');
       } else if (hash === 'test3') {
         setCurrentPage('test3');
+      } else if (hash === 'account') {
+        setCurrentPage('account');
       } else {
         setCurrentPage('home');
       }
@@ -88,6 +91,10 @@ function App() {
   
   if (currentPage === 'test3') {
     return <Test3 />;
+  }
+  
+  if (currentPage === 'account') {
+    return <Account />;
   }
   return (
     <div className="App">

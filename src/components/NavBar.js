@@ -195,7 +195,7 @@ const NavBar = () => {
           </li>
           <li className="navbar-item">
             <a 
-              href="#visualization" 
+              href="#account" 
               className="navbar-link"
               onClick={closeMenu}
             >

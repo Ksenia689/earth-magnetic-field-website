@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import './topic1.css';
+import { saveTestResult } from '../utils/accountUtils';
 
 const questions = [
     {
@@ -189,6 +190,13 @@ const Test2 = () => {
     });
     setScore(correctAnswers);
     setShowResults(true);
+    
+    // Save test result to account if user is logged in
+    const scorePercentage = Math.round((correctAnswers / randomizedQuestions.length) * 100);
+    saveTestResult(scorePercentage, 'Методи вимірювання', correctAnswers, randomizedQuestions.length, {
+      testType: 'Тест 2',
+      difficulty: 'Середній'
+    });
   };
 
   const resetTest = () => {
