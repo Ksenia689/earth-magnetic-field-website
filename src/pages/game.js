@@ -7,6 +7,7 @@ const MissionAuroraGame = () => {
   const [gameState, setGameState] = useState('intro'); // intro, phase1, phase2, phase3, victory, failure
   const [currentPhase, setCurrentPhase] = useState(1);
   const [score, setScore] = useState(0);
+  const [mistakes, setMistakes] = useState(0); // Track player mistakes
   const [anomaliesFound, setAnomaliesFound] = useState(0);
   const [scannerPosition, setScannerPosition] = useState({ x: 50, y: 50 });
   const [anomalies, setAnomalies] = useState([]);
@@ -28,7 +29,7 @@ const MissionAuroraGame = () => {
   const [targetMeasurements] = useState({
     intensity: 47500,
     inclination: 62,
-    declination: -2,
+    declination: 0,
     totalField: 52000
   });
   const [measurementAttempts, setMeasurementAttempts] = useState({
@@ -43,7 +44,7 @@ const MissionAuroraGame = () => {
   const [environmentalFactors, setEnvironmentalFactors] = useState({
     solarActivity: Math.random() * 100,
     atmosphericNoise: Math.random() * 50,
-    temperature: -10 + Math.random() * 30
+    temperature: Math.random() * 30 // 0°C to 30°C range
   });
   const mapRef = useRef(null);
   const stormIntervalRef = useRef(null);
@@ -165,7 +166,7 @@ const MissionAuroraGame = () => {
         setEnvironmentalFactors(prev => ({
           solarActivity: Math.max(0, Math.min(100, prev.solarActivity + (Math.random() - 0.5) * 10)),
           atmosphericNoise: Math.max(0, Math.min(50, prev.atmosphericNoise + (Math.random() - 0.5) * 5)),
-          temperature: Math.max(-20, Math.min(40, prev.temperature + (Math.random() - 0.5) * 2))
+          temperature: Math.max(0, Math.min(40, prev.temperature + (Math.random() - 0.5) * 2)) // Keep temperature >= 0°C
         }));
       }, 2000);
       return () => clearInterval(interval);
@@ -176,6 +177,7 @@ const MissionAuroraGame = () => {
     setGameState('phase1');
     setCurrentPhase(1);
     setScore(0);
+    setMistakes(0); // Reset mistakes
     setAnomaliesFound(0);
     setStabilizeAttempts(0);
     setTimeLeft(180);
@@ -215,7 +217,7 @@ const MissionAuroraGame = () => {
           newAnomalies[index].found = true;
           setAnomalies(newAnomalies);
           setAnomaliesFound(prev => prev + 1);
-          setScore(prev => Math.min(100, prev + 15)); // Cap at 100
+          // No score awarded in Phase 1 - scoring starts in Phase 2
           
           // Play sound effect (simplified)
           if (window.AudioContext) {
@@ -301,7 +303,10 @@ const MissionAuroraGame = () => {
     
     // Success condition: within tolerance AND high accuracy after environmental effects
     if (isWithinTolerance && adjustedAccuracy >= 60) {
-      const points = Math.round(adjustedAccuracy / 4); // Max 25 points per measurement
+      const basePoints = Math.round(adjustedAccuracy / 4); // Max 25 points per measurement
+      // Bonus for getting it right on first try, penalty for multiple attempts
+      const attemptMultiplier = currentAttempts === 0 ? 1.2 : currentAttempts === 1 ? 1.0 : 0.8;
+      const points = Math.round(basePoints * attemptMultiplier);
       setScore(prev => Math.min(100, prev + points));
       
       if (phase2Step < 4) {
@@ -312,6 +317,10 @@ const MissionAuroraGame = () => {
         setCurrentPhase(3);
       }
     } else {
+      // Track mistake and apply penalty
+      setMistakes(prev => prev + 1);
+      setScore(prev => Math.max(0, prev - 3)); // Lose 3 points per mistake
+      
       // Only fail after 3 attempts (currentAttempts will be 2 after this attempt, so next would be 3rd)
       const outOfAttempts = currentAttempts >= 2; // This will be attempt 3
       
@@ -324,6 +333,7 @@ const MissionAuroraGame = () => {
           measurementType: type,
           anomaliesFound: anomaliesFound,
           phase2Step: phase2Step,
+          mistakes: mistakes + 1, // Include final mistake count
           gameType: 'Mission Aurora'
         });
         
@@ -343,7 +353,8 @@ const MissionAuroraGame = () => {
     let extremeConditionPenalty = 0;
     if (environmentalFactors.solarActivity > 95) extremeConditionPenalty += 20;
     if (environmentalFactors.atmosphericNoise > 45) extremeConditionPenalty += 15;
-    if (Math.abs(environmentalFactors.temperature) > 35) extremeConditionPenalty += 10;
+    // Fix: Check for extreme temperatures (only too hot now, since we don't go below 0°C)
+    if (environmentalFactors.temperature > 35) extremeConditionPenalty += 10;
     
     return Math.min(50, (solarEffect + noiseEffect + tempEffect) / 3 + extremeConditionPenalty);
   };
@@ -353,36 +364,56 @@ const MissionAuroraGame = () => {
     setStabilizeAttempts(prev => prev + 1);
 
     if (isGoodTiming) {
-      setScore(prev => Math.min(100, prev + 25)); // Cap at 100
+      // Bonus for perfect timing, bonus for fewer attempts
+      const basePoints = 25;
+      const attemptBonus = stabilizeAttempts === 0 ? 5 : 0; // Bonus for first try
+      const finalPoints = basePoints + attemptBonus;
+      setScore(prev => Math.min(100, prev + finalPoints)); // Cap at 100
       // Success - proceed to victory
       setTimeout(() => {
-        const finalScore = Math.min(100, score + 25); // Cap final score at 100
+        const finalScore = Math.min(100, score + finalPoints); // Cap final score at 100
+        // Calculate final score with mistake penalty
+        const mistakePenalty = mistakes * 2; // 2 points per mistake
+        const adjustedScore = Math.max(0, finalScore - mistakePenalty);
+        
         const newBadges = ['🧭 Field Explorer'];
-        if (finalScore >= 90) newBadges.push('🛰 Magnetic Guardian');
+        if (adjustedScore >= 90 && mistakes <= 2) newBadges.push('🛰 Magnetic Guardian');
+        if (mistakes === 0) newBadges.push('🎯 Perfect Execution');
         setBadges(newBadges);
         
+        // Update score to final adjusted score
+        setScore(adjustedScore);
+        
         // Save game result to account if user is logged in
-        saveGameResult(finalScore, 3, true, {
+        saveGameResult(adjustedScore, 3, true, {
           badges: newBadges,
           anomaliesFound: anomaliesFound,
           phase2Step: phase2Step,
+          mistakes: mistakes,
           gameType: 'Mission Aurora'
         });
         
         setGameState('victory');
       }, 1000);
-    } else if (stabilizeAttempts >= 2) {
-      setFailureReason('phase3');
+    } else {
+      // Track mistake and apply penalty
+      setMistakes(prev => prev + 1);
+      setScore(prev => Math.max(0, prev - 5)); // Lose 5 points for wrong timing
       
-      // Save failure result to account if user is logged in
-      saveGameResult(score, 3, false, {
-        failureReason: 'phase3',
-        anomaliesFound: anomaliesFound,
-        phase2Step: phase2Step,
-        gameType: 'Mission Aurora'
-      });
-      
-      setGameState('failure');
+      if (stabilizeAttempts >= 2) {
+        setFailureReason('phase3');
+        
+        // Save failure result to account if user is logged in
+        saveGameResult(score, 3, false, {
+          failureReason: 'phase3',
+          anomaliesFound: anomaliesFound,
+          phase2Step: phase2Step,
+          mistakes: mistakes,
+          gameType: 'Mission Aurora'
+        });
+        
+        setGameState('failure');
+      }
     }
   };
 
@@ -429,6 +460,9 @@ const MissionAuroraGame = () => {
                   <div style={{ color: '#fff', fontWeight: 'bold', fontSize: '1.2rem' }}>
                     Рахунок: {score}
                   </div>
+                  <div style={{ color: mistakes > 5 ? '#ff6b6b' : '#FFD700', fontWeight: 'bold', fontSize: '1.2rem' }}>
+                    Помилки: {mistakes}
+                  </div>
                   <div style={{ color: timeLeft < 30 ? '#ff6b6b' : '#fff', fontWeight: 'bold', fontSize: '1.2rem' }}>
                     Час: {formatTime(timeLeft)}
                   </div>
@@ -450,9 +484,9 @@ const MissionAuroraGame = () => {
                 <div className="highlight-box">
                   <h3>Завдання місії:</h3>
                   <ul style={{ textAlign: 'left', paddingLeft: '2rem' }}>
-                    <li>📡 <strong>Фаза 1:</strong> Знайти магнітні аномалії на Землі</li>
-                    <li>📊 <strong>Фаза 2:</strong> Виміряти напруженість магнітного поля</li>
-                    <li>🛰️ <strong>Фаза 3:</strong> Стабілізувати супутник під час бурі</li>
+                    <li>📡 <strong>Фаза 1:</strong> Знайти магнітні аномалії на Землі (тренування)</li>
+                    <li>📊 <strong>Фаза 2:</strong> Виміряти напруженість магнітного поля (оцінювання)</li>
+                    <li>🛰️ <strong>Фаза 3:</strong> Стабілізувати супутник під час бурі (фінал)</li>
                   </ul>
                 </div>
 
@@ -476,11 +510,12 @@ const MissionAuroraGame = () => {
           {/* Phase 1: Scanning */}
           {gameState === 'phase1' && (
             <section className="topic1-section">
-              <h2>Фаза 1: Сканування Землі 📡</h2>
+              <h2>Фаза 1: Сканування Землі 📡 (Тренування)</h2>
               <div className="section-content">
                 <p style={{ marginBottom: '1rem' }}>
                   Знайдіть <strong>{3 - anomaliesFound}</strong> магнітних аномалій. 
-                  Клікайте по карті для сканування!
+                  Клікайте по карті для сканування! <br />
+                  <em style={{ color: '#FFD700' }}>🎯 Ця фаза для тренування - бали не нараховуються</em>
                 </p>
                 
                 <div 
@@ -653,7 +688,7 @@ const MissionAuroraGame = () => {
                     <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🌡️</div>
                     <div style={{ fontSize: '0.9rem', color: '#ccc' }}>Температура</div>
                     <div style={{ 
-                      color: Math.abs(environmentalFactors.temperature) > 25 ? '#ff6b6b' : '#4CAF50',
+                      color: environmentalFactors.temperature > 35 ? '#ff6b6b' : '#4CAF50',
                       fontWeight: 'bold'
                     }}>
                       {Math.round(environmentalFactors.temperature)}°C
@@ -1182,6 +1217,14 @@ const MissionAuroraGame = () => {
                     marginBottom: '1rem'
                   }}>
                     Рахунок: {score}/100
+                  </div>
+
+                  <div style={{ 
+                    fontSize: '1.1rem', 
+                    color: mistakes === 0 ? '#4CAF50' : mistakes <= 3 ? '#FFD700' : '#ff6b6b',
+                    marginBottom: '1rem'
+                  }}>
+                    Помилки: {mistakes} {mistakes === 0 ? '✨ Ідеально!' : mistakes <= 3 ? '👍 Добре' : '💪 Можна краще'}
                   </div>
 
                   <div style={{ 
