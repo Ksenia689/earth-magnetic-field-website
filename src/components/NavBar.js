@@ -134,6 +134,15 @@ const NavBar = () => {
               </li>
               <li className="dropdown-item">
                 <a 
+                  href="#mission-aurora" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Місія Аврора (Гра)
+                </a>
+              </li>
+              <li className="dropdown-item">
+                <a 
                   href="#earth-magnetic-field" 
                   className="dropdown-link"
                   onClick={closeMenu}
@@ -195,11 +204,11 @@ const NavBar = () => {
           </li>
           <li className="navbar-item">
             <a 
-              href="#data" 
+              href="#mission-aurora" 
               className="navbar-link"
               onClick={closeMenu}
             >
-              Data
+               Гра
             </a>
           </li>
         </ul>
