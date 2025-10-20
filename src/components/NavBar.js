@@ -116,7 +116,7 @@ const NavBar = () => {
             <ul className={`dropdown-menu ${isExperimentsDropdownOpen ? 'active' : ''}`}>
               <li className="dropdown-item">
                 <a 
-                  href="#horizon-simulator" 
+                  href="#horizon" 
                   className="dropdown-link"
                   onClick={closeMenu}
                 >

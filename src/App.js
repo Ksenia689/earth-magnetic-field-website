@@ -7,6 +7,8 @@ import Topic3 from './pages/topic3';
 import Test1 from './pages/test1';
 import Test2 from './pages/test2';
 import Test3 from './pages/test3';
+import HorizonSimulator from './pages/horizon';
+import MagneticAnomalyMap from './pages/map';
 import magneticFieldImage from './img/main2.png';
 import magneticFieldGif from './img/Rotating-Earth-Magnetic-Field.gif';
 
@@ -23,6 +25,10 @@ function App() {
         setCurrentPage('measurement');
       } else if (hash === 'topic3') {
         setCurrentPage('topic3');
+      } else if (hash === 'horizon') {
+        setCurrentPage('horizon');
+      } else if (hash === 'magnetic-anomalies-map') {
+        setCurrentPage('magnetic-anomalies-map');
       } else if (hash === 'test1') {
         setCurrentPage('test1');
       } else if (hash === 'test2') {
@@ -55,6 +61,14 @@ function App() {
   
   if (currentPage === 'topic3') {
     return <Topic3 />;
+  }
+  
+  if (currentPage === 'horizon') {
+    return <HorizonSimulator />;
+  }
+  
+  if (currentPage === 'magnetic-anomalies-map') {
+    return <MagneticAnomalyMap />;
   }
   
   if (currentPage === 'test1') {

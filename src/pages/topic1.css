@@ -873,3 +873,251 @@
     font-size: 0.95rem;
   }
 }
+
+/* Horizon Simulator Styles */
+.calculator-container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 1rem;
+}
+
+.input-group {
+  margin-bottom: 2rem;
+}
+
+.input-label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #4CAF50;
+  margin-bottom: 0.8rem;
+}
+
+.height-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.height-input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.height-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.calculate-btn, .clear-btn {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculate-btn {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.calculate-btn:hover {
+  background: linear-gradient(135deg, #45a049, #4CAF50);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.clear-btn {
+  background: linear-gradient(135deg, #757575, #616161);
+  color: white;
+  box-shadow: 0 4px 15px rgba(117, 117, 117, 0.3);
+}
+
+.clear-btn:hover {
+  background: linear-gradient(135deg, #616161, #757575);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(117, 117, 117, 0.4);
+}
+
+.result-container {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(129, 199, 132, 0.2));
+  border: 2px solid rgba(76, 175, 80, 0.4);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-top: 2rem;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-container h3 {
+  color: #4CAF50;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+}
+
+.result-value {
+  margin-bottom: 2rem;
+}
+
+.distance-value {
+  display: block;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #4CAF50;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.result-description {
+  font-size: 1.2rem;
+  color: #f0f0f0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.calculation-details {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.calculation-details h4 {
+  color: #81C784;
+  margin-bottom: 1rem;
+  margin-top: 0;
+  text-align: center;
+}
+
+.formula-steps {
+  font-family: 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+}
+
+.formula-steps p {
+  margin: 0.5rem 0;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.formula-steps ul {
+  margin: 0.5rem 0 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.formula-steps li {
+  color: #f0f0f0;
+  margin-bottom: 0.3rem;
+}
+
+.formula-steps strong {
+  color: #4CAF50;
+}
+
+/* Responsive styles for horizon simulator */
+@media (max-width: 768px) {
+  .calculator-container {
+    padding: 1.5rem;
+  }
+
+  .height-input {
+    max-width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .calculate-btn, .clear-btn {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .distance-value {
+    font-size: 2.5rem;
+  }
+
+  .result-description {
+    font-size: 1.1rem;
+  }
+
+  .calculation-details {
+    padding: 1rem;
+  }
+
+  .formula-steps {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator-container {
+    padding: 1rem;
+  }
+
+  .input-label {
+    font-size: 1.1rem;
+  }
+
+  .height-input {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
+
+  .calculate-btn, .clear-btn {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .distance-value {
+    font-size: 2rem;
+  }
+
+  .result-description {
+    font-size: 1rem;
+  }
+
+  .result-container {
+    padding: 1.5rem;
+  }
+}
