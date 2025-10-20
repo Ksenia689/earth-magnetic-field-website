@@ -10,7 +10,6 @@ const MissionAuroraGame = () => {
   const [scannerPosition, setScannerPosition] = useState({ x: 50, y: 50 });
   const [anomalies, setAnomalies] = useState([]);
   const [fieldValue, setFieldValue] = useState(47000);
-  const [targetFieldValue] = useState(47000);
   const [stabilizeAttempts, setStabilizeAttempts] = useState(0);
   const [stormIntensity, setStormIntensity] = useState(50);
   const [badges, setBadges] = useState([]);
@@ -233,13 +232,6 @@ const MissionAuroraGame = () => {
     }
   };
 
-  const measureFieldStrength = () => {
-    const accuracy = 100 - Math.abs(fieldValue - targetFieldValue) / 500;
-    const points = Math.max(0, Math.round(accuracy));
-    setScore(prev => Math.min(100, prev + points)); // Cap at 100
-    setGameState('phase3');
-    setCurrentPhase(3);
-  };
 
   // Complex Phase 2 functions
   const startCalibration = () => {
