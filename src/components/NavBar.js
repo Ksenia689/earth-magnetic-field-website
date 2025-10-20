@@ -57,7 +57,25 @@ const NavBar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-brand">
-          <h2>Магнітне поле Землі</h2>
+          <h2>
+            <button 
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: 'inherit', 
+                font: 'inherit',
+                cursor: 'pointer',
+                padding: 0,
+                margin: 0
+              }}
+              onClick={() => {
+                window.location.hash = '';
+                closeMenu();
+              }}
+            >
+              Магнітне поле Землі
+            </button>
+          </h2>
         </div>
         
         <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
@@ -130,24 +148,6 @@ const NavBar = () => {
                   onClick={closeMenu}
                 >
                   Карта магнітних аномалій
-                </a>
-              </li>
-              <li className="dropdown-item">
-                <a 
-                  href="#mission-aurora" 
-                  className="dropdown-link"
-                  onClick={closeMenu}
-                >
-                  Місія Аврора (Гра)
-                </a>
-              </li>
-              <li className="dropdown-item">
-                <a 
-                  href="#earth-magnetic-field" 
-                  className="dropdown-link"
-                  onClick={closeMenu}
-                >
-                  Магнітне поле Землі
                 </a>
               </li>
             </ul>
