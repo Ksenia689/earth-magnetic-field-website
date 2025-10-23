@@ -4,10 +4,10 @@ import './topic1.css';
 import { saveGameResult } from '../utils/accountUtils';
 
 const MissionAuroraGame = () => {
-  const [gameState, setGameState] = useState('intro'); // intro, phase1, phase2, phase3, victory, failure
+  const [gameState, setGameState] = useState('intro'); 
   const [currentPhase, setCurrentPhase] = useState(1);
   const [score, setScore] = useState(0);
-  const [mistakes, setMistakes] = useState(0); // Track player mistakes
+  const [mistakes, setMistakes] = useState(0); 
   const [anomaliesFound, setAnomaliesFound] = useState(0);
   const [scannerPosition, setScannerPosition] = useState({ x: 50, y: 50 });
   const [anomalies, setAnomalies] = useState([]);
@@ -15,11 +15,11 @@ const MissionAuroraGame = () => {
   const [stabilizeAttempts, setStabilizeAttempts] = useState(0);
   const [stormIntensity, setStormIntensity] = useState(50);
   const [badges, setBadges] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(180); // 3 minutes
-  const [failureReason, setFailureReason] = useState(''); // Track why mission failed
+  const [timeLeft, setTimeLeft] = useState(180); 
+  const [failureReason, setFailureReason] = useState(''); 
   
-  // Complex Phase 2 states
-  const [phase2Step, setPhase2Step] = useState(1); // 1-4 for different measurement types
+
+  const [phase2Step, setPhase2Step] = useState(1); 
   const [measurements, setMeasurements] = useState({
     intensity: 0,
     inclination: 0,
@@ -38,13 +38,13 @@ const MissionAuroraGame = () => {
     declination: 0,
     totalField: 0
   });
-  const [phase2Timer, setPhase2Timer] = useState(120); // 2 minutes for Phase 2
+  const [phase2Timer, setPhase2Timer] = useState(120); 
   const [isCalibrating, setIsCalibrating] = useState(false);
   const [calibrationProgress, setCalibrationProgress] = useState(0);
   const [environmentalFactors, setEnvironmentalFactors] = useState({
     solarActivity: Math.random() * 100,
     atmosphericNoise: Math.random() * 50,
-    temperature: Math.random() * 30 // 0°C to 30°C range
+    temperature: Math.random() * 30 
   });
   const mapRef = useRef(null);
   const stormIntervalRef = useRef(null);
@@ -53,27 +53,24 @@ const MissionAuroraGame = () => {
     window.location.hash = '';
   };
 
-  // Generate random anomalies for Phase 1 - within planet boundaries
+
   useEffect(() => {
     if (gameState === 'phase1') {
       const newAnomalies = [];
-      const centerX = 50; // Earth center X (50%)
-      const centerY = 50; // Earth center Y (50%)
-      const planetRadius = 15; // Planet radius in percentage (200px out of ~400px container = ~25%, but using 15% for safety)
+      const centerX = 50; 
+      const centerY = 50; 
+      const planetRadius = 15; 
       
       for (let i = 0; i < 5; i++) {
         let x, y, distance;
-        // Keep generating random positions until we find one inside the planet
+   
         do {
-          // Generate random angle and radius within the circle
           const angle = Math.random() * 2 * Math.PI;
-          const radius = Math.random() * planetRadius * 0.8; // Use 80% of radius to keep anomalies well within bounds
+          const radius = Math.random() * planetRadius * 0.8; 
           
-          // Convert polar coordinates to cartesian, centered on the planet
           x = centerX + radius * Math.cos(angle);
           y = centerY + radius * Math.sin(angle);
           
-          // Calculate distance from planet center
           distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
         } while (distance > planetRadius * 0.8);
         
@@ -88,7 +85,6 @@ const MissionAuroraGame = () => {
     }
   }, [gameState]);
 
-  // Timer countdown
   useEffect(() => {
     if (gameState === 'phase1' && timeLeft > 0) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
@@ -96,7 +92,6 @@ const MissionAuroraGame = () => {
     } else if (gameState === 'phase1' && timeLeft <= 0) {
       setFailureReason('phase1-timeout');
       
-      // Save failure result to account if user is logged in
       saveGameResult(score, 1, false, {
         failureReason: 'phase1-timeout',
         anomaliesFound: anomaliesFound,
@@ -106,14 +101,12 @@ const MissionAuroraGame = () => {
       setGameState('failure');
     }
     
-    // Phase 2 timer
     if (gameState === 'phase2' && phase2Timer > 0) {
       const timer = setTimeout(() => setPhase2Timer(phase2Timer - 1), 1000);
       return () => clearTimeout(timer);
     } else if (gameState === 'phase2' && phase2Timer <= 0) {
       setFailureReason('phase2-timeout');
       
-      // Save failure result to account if user is logged in
       saveGameResult(score, 2, false, {
         failureReason: 'phase2-timeout',
         anomaliesFound: anomaliesFound,
@@ -125,7 +118,6 @@ const MissionAuroraGame = () => {
     }
   }, [gameState, timeLeft, phase2Timer, score, anomaliesFound, phase2Step]);
 
-  // Storm intensity fluctuation for Phase 3
   useEffect(() => {
     if (gameState === 'phase3') {
       stormIntervalRef.current = setInterval(() => {
@@ -143,7 +135,6 @@ const MissionAuroraGame = () => {
     };
   }, [gameState]);
 
-  // Calibration progress effect
   useEffect(() => {
     if (isCalibrating) {
       const interval = setInterval(() => {
@@ -159,7 +150,6 @@ const MissionAuroraGame = () => {
     }
   }, [isCalibrating]);
 
-  // Environmental factors fluctuation
   useEffect(() => {
     if (gameState === 'phase2') {
       const interval = setInterval(() => {
@@ -177,14 +167,13 @@ const MissionAuroraGame = () => {
     setGameState('phase1');
     setCurrentPhase(1);
     setScore(0);
-    setMistakes(0); // Reset mistakes
+    setMistakes(0); 
     setAnomaliesFound(0);
     setStabilizeAttempts(0);
     setTimeLeft(180);
     setBadges([]);
-    setFailureReason(''); // Reset failure reason
+    setFailureReason(''); 
     
-    // Reset Phase 2 states
     setPhase2Step(1);
     setPhase2Timer(120);
     setMeasurementAttempts({
@@ -206,20 +195,18 @@ const MissionAuroraGame = () => {
 
     setScannerPosition({ x, y });
 
-    // Check if clicked near an anomaly
     anomalies.forEach((anomaly, index) => {
       if (!anomaly.found) {
         const distance = Math.sqrt(
           Math.pow(x - anomaly.x, 2) + Math.pow(y - anomaly.y, 2)
         );
-        if (distance < 8) { // Detection radius
+        if (distance < 8) { 
           const newAnomalies = [...anomalies];
           newAnomalies[index].found = true;
           setAnomalies(newAnomalies);
           setAnomaliesFound(prev => prev + 1);
-          // No score awarded in Phase 1 - scoring starts in Phase 2
           
-          // Play sound effect (simplified)
+          
           if (window.AudioContext) {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const oscillator = audioContext.createOscillator();
@@ -241,8 +228,7 @@ const MissionAuroraGame = () => {
       setGameState('phase2');
       setCurrentPhase(2);
       setPhase2Step(1);
-      setPhase2Timer(120); // Reset timer for Phase 2
-      // Reset all measurements with some initial variation
+      setPhase2Timer(120);
       setMeasurements({
         intensity: 45000 + Math.random() * 5000,
         inclination: 55 + Math.random() * 14,
@@ -253,7 +239,6 @@ const MissionAuroraGame = () => {
   };
 
 
-  // Complex Phase 2 functions
   const startCalibration = () => {
     setIsCalibrating(true);
     setCalibrationProgress(0);
@@ -272,26 +257,24 @@ const MissionAuroraGame = () => {
     const environmentalEffect = getEnvironmentalEffect();
     const currentAttempts = measurementAttempts[type];
     
-    // Update attempts first
     setMeasurementAttempts(prev => ({
       ...prev,
       [type]: prev[type] + 1
     }));
 
-    // Calculate accuracy with different tolerances for each measurement type
     let tolerance;
     switch(type) {
       case 'intensity':
-        tolerance = target * 0.05; // 5% tolerance
+        tolerance = target * 0.05; 
         break;
       case 'inclination':
-        tolerance = 2; // 2 degrees tolerance
+        tolerance = 2; 
         break;
       case 'declination':
-        tolerance = 1; // 1 degree tolerance
+        tolerance = 1; 
         break;
       case 'totalField':
-        tolerance = target * 0.04; // 4% tolerance
+        tolerance = target * 0.04; 
         break;
       default:
         tolerance = target * 0.1;
@@ -301,10 +284,8 @@ const MissionAuroraGame = () => {
     const rawAccuracy = 100 - (Math.abs(current - target) / tolerance) * 50;
     const adjustedAccuracy = Math.max(0, rawAccuracy - environmentalEffect);
     
-    // Success condition: within tolerance AND high accuracy after environmental effects
     if (isWithinTolerance && adjustedAccuracy >= 60) {
-      const basePoints = Math.round(adjustedAccuracy / 4); // Max 25 points per measurement
-      // Bonus for getting it right on first try, penalty for multiple attempts
+      const basePoints = Math.round(adjustedAccuracy / 4); 
       const attemptMultiplier = currentAttempts === 0 ? 1.2 : currentAttempts === 1 ? 1.0 : 0.8;
       const points = Math.round(basePoints * attemptMultiplier);
       setScore(prev => Math.min(100, prev + points));
@@ -312,68 +293,57 @@ const MissionAuroraGame = () => {
       if (phase2Step < 4) {
         setPhase2Step(phase2Step + 1);
       } else {
-        // All measurements complete, proceed to Phase 3
         setGameState('phase3');
         setCurrentPhase(3);
       }
     } else {
-      // Track mistake and apply penalty
       setMistakes(prev => prev + 1);
-      setScore(prev => Math.max(0, prev - 3)); // Lose 3 points per mistake
+      setScore(prev => Math.max(0, prev - 3)); 
       
-      // Only fail after 3 attempts (currentAttempts will be 2 after this attempt, so next would be 3rd)
-      const outOfAttempts = currentAttempts >= 2; // This will be attempt 3
+      const outOfAttempts = currentAttempts >= 2; 
       
       if (outOfAttempts) {
         setFailureReason('phase2');
         
-        // Save failure result to account if user is logged in
         saveGameResult(score, 2, false, {
           failureReason: 'phase2',
           measurementType: type,
           anomaliesFound: anomaliesFound,
           phase2Step: phase2Step,
-          mistakes: mistakes + 1, // Include final mistake count
+          mistakes: mistakes + 1, 
           gameType: 'Mission Aurora'
         });
         
         setGameState('failure');
       }
-      // Otherwise, player can try again (show feedback but don't fail yet)
     }
   };
 
   const getEnvironmentalEffect = () => {
-    // Higher environmental factors make measurements less accurate
     const solarEffect = environmentalFactors.solarActivity * 0.35;
     const noiseEffect = environmentalFactors.atmosphericNoise * 0.6;
-    const tempEffect = Math.abs(environmentalFactors.temperature - 10) * 0.4; // Optimal temp around 10°C
+    const tempEffect = Math.abs(environmentalFactors.temperature - 10) * 0.4;
     
-    // Extreme conditions cause major accuracy loss
     let extremeConditionPenalty = 0;
     if (environmentalFactors.solarActivity > 95) extremeConditionPenalty += 20;
     if (environmentalFactors.atmosphericNoise > 45) extremeConditionPenalty += 15;
-    // Fix: Check for extreme temperatures (only too hot now, since we don't go below 0°C)
     if (environmentalFactors.temperature > 35) extremeConditionPenalty += 10;
     
     return Math.min(50, (solarEffect + noiseEffect + tempEffect) / 3 + extremeConditionPenalty);
   };
 
   const stabilizeSatellite = () => {
-    const isGoodTiming = stormIntensity > 80; // Good timing when storm is intense
+    const isGoodTiming = stormIntensity > 80; 
     setStabilizeAttempts(prev => prev + 1);
 
     if (isGoodTiming) {
-      // Bonus for perfect timing, bonus for fewer attempts
       const basePoints = 25;
-      const attemptBonus = stabilizeAttempts === 0 ? 5 : 0; // Bonus for first try
+      const attemptBonus = stabilizeAttempts === 0 ? 5 : 0; 
       const finalPoints = basePoints + attemptBonus;
-      setScore(prev => Math.min(100, prev + finalPoints)); // Cap at 100
-      // Success - proceed to victory
+      setScore(prev => Math.min(100, prev + finalPoints)); 
       setTimeout(() => {
-        const finalScore = Math.min(100, score + finalPoints); // Cap final score at 100
-        // Calculate final score with mistake penalty
-        const mistakePenalty = mistakes * 2; // 2 points per mistake
+        const finalScore = Math.min(100, score + finalPoints);
+        const mistakePenalty = mistakes * 2; 
         const adjustedScore = Math.max(0, finalScore - mistakePenalty);
         
         const newBadges = ['🧭 Field Explorer'];
@@ -381,10 +351,8 @@ const MissionAuroraGame = () => {
         if (mistakes === 0) newBadges.push('🎯 Perfect Execution');
         setBadges(newBadges);
         
-        // Update score to final adjusted score
         setScore(adjustedScore);
         
-        // Save game result to account if user is logged in
         saveGameResult(adjustedScore, 3, true, {
           badges: newBadges,
           anomaliesFound: anomaliesFound,
@@ -396,14 +364,12 @@ const MissionAuroraGame = () => {
         setGameState('victory');
       }, 1000);
     } else {
-      // Track mistake and apply penalty
       setMistakes(prev => prev + 1);
-      setScore(prev => Math.max(0, prev - 5)); // Lose 5 points for wrong timing
+      setScore(prev => Math.max(0, prev - 5)); 
       
       if (stabilizeAttempts >= 2) {
         setFailureReason('phase3');
         
-        // Save failure result to account if user is logged in
         saveGameResult(score, 3, false, {
           failureReason: 'phase3',
           anomaliesFound: anomaliesFound,
@@ -441,7 +407,6 @@ const MissionAuroraGame = () => {
             </p>
           </header>
 
-          {/* Game Timer and Score */}
           {gameState.startsWith('phase') && (
             <section className="topic1-section">
               <div className="section-content">
@@ -471,7 +436,6 @@ const MissionAuroraGame = () => {
             </section>
           )}
 
-          {/* Intro Screen */}
           {gameState === 'intro' && (
             <section className="topic1-section">
               <h2>Вітаємо, дослідник!</h2>
@@ -507,7 +471,6 @@ const MissionAuroraGame = () => {
             </section>
           )}
 
-          {/* Phase 1: Scanning */}
           {gameState === 'phase1' && (
             <section className="topic1-section">
               <h2>Фаза 1: Сканування Землі 📡 (Тренування)</h2>
@@ -533,7 +496,6 @@ const MissionAuroraGame = () => {
                     margin: '1rem 0'
                   }}
                 >
-                  {/* Earth representation */}
                   <div style={{
                     position: 'absolute',
                     top: '50%',
@@ -546,7 +508,6 @@ const MissionAuroraGame = () => {
                     border: '3px solid #81C784'
                   }} />
 
-                  {/* Anomalies */}
                   {anomalies.map((anomaly) => (
                     <div
                       key={anomaly.id}
@@ -565,7 +526,6 @@ const MissionAuroraGame = () => {
                     />
                   ))}
 
-                  {/* Scanner reticle */}
                   <div style={{
                     position: 'absolute',
                     left: `${scannerPosition.x}%`,
@@ -614,7 +574,6 @@ const MissionAuroraGame = () => {
             </section>
           )}
 
-          {/* Phase 2: Complex Field Measurement */}
           {gameState === 'phase2' && (
             <section className="topic1-section">
               <h2>Фаза 2: Комплексне вимірювання магнітного поля 📊</h2>
@@ -641,7 +600,6 @@ const MissionAuroraGame = () => {
                   </div>
                 </div>
 
-                {/* Environmental Conditions Panel */}
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(3, 1fr)',
@@ -696,7 +654,6 @@ const MissionAuroraGame = () => {
                   </div>
                 </div>
 
-                {/* Calibration Section */}
                 {!isCalibrating && calibrationProgress === 0 && (
                   <div style={{
                     textAlign: 'center',
@@ -714,7 +671,6 @@ const MissionAuroraGame = () => {
                   </div>
                 )}
 
-                {/* Calibration Progress */}
                 {isCalibrating && (
                   <div style={{
                     textAlign: 'center',
@@ -744,10 +700,8 @@ const MissionAuroraGame = () => {
                   </div>
                 )}
 
-                {/* Measurement Interface - only show after calibration */}
                 {!isCalibrating && calibrationProgress === 0 && (
                   <>
-                    {/* Step 1: Intensity Measurement */}
                     {phase2Step === 1 && (
                       <div style={{
                         padding: '2rem',
@@ -829,7 +783,6 @@ const MissionAuroraGame = () => {
                       </div>
                     )}
 
-                    {/* Step 2: Inclination Measurement */}
                     {phase2Step === 2 && (
                       <div style={{
                         padding: '2rem',
@@ -912,7 +865,6 @@ const MissionAuroraGame = () => {
                       </div>
                     )}
 
-                    {/* Step 3: Declination Measurement */}
                     {phase2Step === 3 && (
                       <div style={{
                         padding: '2rem',
@@ -995,7 +947,6 @@ const MissionAuroraGame = () => {
                       </div>
                     )}
 
-                    {/* Step 4: Total Field Measurement */}
                     {phase2Step === 4 && (
                       <div style={{
                         padding: '2rem',
@@ -1088,7 +1039,6 @@ const MissionAuroraGame = () => {
             </section>
           )}
 
-          {/* Phase 3: Satellite Stabilization */}
           {gameState === 'phase3' && (
             <section className="topic1-section">
               <h2>Фаза 3: Стабілізація супутника 🛰️</h2>
@@ -1107,7 +1057,6 @@ const MissionAuroraGame = () => {
                   borderRadius: '15px',
                   margin: '1rem 0'
                 }}>
-                  {/* Storm intensity meter */}
                   <div style={{
                     width: '100%',
                     maxWidth: '400px',
@@ -1139,7 +1088,6 @@ const MissionAuroraGame = () => {
                     </div>
                   </div>
 
-                  {/* Satellite animation */}
                   <div style={{
                     width: '100px',
                     height: '100px',
@@ -1178,7 +1126,6 @@ const MissionAuroraGame = () => {
             </section>
           )}
 
-          {/* Victory Screen */}
           {gameState === 'victory' && (
             <section className="topic1-section conclusion">
               <h2>🎉 Місія завершена успішно!</h2>
@@ -1190,7 +1137,6 @@ const MissionAuroraGame = () => {
                   borderRadius: '15px',
                   margin: '2rem 0'
                 }}>
-                  {/* Aurora effect */}
                   <div style={{
                     width: '150px',
                     height: '150px',
@@ -1275,7 +1221,6 @@ const MissionAuroraGame = () => {
             </section>
           )}
 
-          {/* Failure Screen */}
           {gameState === 'failure' && (
             <section className="topic1-section">
               <h2>💥 Місія не виконана</h2>
@@ -1349,7 +1294,6 @@ const MissionAuroraGame = () => {
         </div>
       </main>
 
-      {/* Custom animations */}
       <style jsx>{`
         @keyframes pulse {
           0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }

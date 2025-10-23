@@ -21,7 +21,6 @@ const Account = () => {
     window.location.hash = '';
   };
 
-  // Check if user is already logged in
   useEffect(() => {
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
@@ -32,7 +31,6 @@ const Account = () => {
     }
   }, []);
 
-  // Load user results from localStorage
   const loadUserResults = (username) => {
     const users = JSON.parse(localStorage.getItem('earthMagneticUsers') || '{}');
     if (users[username]) {
@@ -40,7 +38,6 @@ const Account = () => {
     }
   };
 
-  // Save user results to localStorage
   const saveUserResults = (username, results) => {
     const users = JSON.parse(localStorage.getItem('earthMagneticUsers') || '{}');
     if (!users[username]) {
@@ -64,7 +61,6 @@ const Account = () => {
     const users = JSON.parse(localStorage.getItem('earthMagneticUsers') || '{}');
 
     if (isSignUp) {
-      // Sign Up
       if (formData.password !== formData.confirmPassword) {
         setError('Паролі не співпадають');
         return;
@@ -82,7 +78,6 @@ const Account = () => {
         return;
       }
 
-      // Create new user
       users[formData.username] = {
         password: formData.password,
         results: {
@@ -100,7 +95,6 @@ const Account = () => {
       setFormData({ username: '', password: '', confirmPassword: '' });
       setError('');
     } else {
-      // Sign In
       if (!users[formData.username]) {
         setError('Користувача з таким ім\'ям не знайдено');
         return;
@@ -110,7 +104,6 @@ const Account = () => {
         return;
       }
 
-      // Login successful
       const user = { username: formData.username };
       setCurrentUser(user);
       setIsLoggedIn(true);

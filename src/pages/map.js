@@ -7,7 +7,6 @@ const MagneticAnomalyMap = () => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
 
-  // Sample magnetic anomaly data for different regions
   const magneticAnomalies = {
     'north-america': {
       name: 'Північноамериканська магнітна аномалія',
@@ -113,7 +112,6 @@ const MagneticAnomalyMap = () => {
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
                 
-                {/* Clickable zones overlaid on the map */}
                 <div style={{
                   position: 'absolute',
                   top: 0,
@@ -122,7 +120,6 @@ const MagneticAnomalyMap = () => {
                   height: '100%',
                   pointerEvents: 'none'
                 }}>
-                  {/* North America Zone */}
                   <div
                     onClick={() => handleRegionClick('north-america')}
                     style={{
@@ -157,7 +154,6 @@ const MagneticAnomalyMap = () => {
                     Північна Америка
                   </div>
 
-                  {/* Siberia Zone */}
                   <div
                     onClick={() => handleRegionClick('siberia')}
                     style={{
@@ -192,7 +188,6 @@ const MagneticAnomalyMap = () => {
                     Сибір
                   </div>
 
-                  {/* South Atlantic Zone */}
                   <div
                     onClick={() => handleRegionClick('south-atlantic')}
                     style={{
@@ -228,7 +223,6 @@ const MagneticAnomalyMap = () => {
                     Південна Атлантика
                   </div>
 
-                  {/* Australia Zone */}
                   <div
                     onClick={() => handleRegionClick('australia')}
                     style={{
@@ -263,7 +257,6 @@ const MagneticAnomalyMap = () => {
                     Австралія
                   </div>
 
-                  {/* Greenland Zone */}
                   <div
                     onClick={() => handleRegionClick('greenland')}
                     style={{
@@ -298,7 +291,6 @@ const MagneticAnomalyMap = () => {
                     Гренландія
                   </div>
 
-                  {/* Antarctica Zone */}
                   <div
                     onClick={() => handleRegionClick('antarctica')}
                     style={{
@@ -393,7 +385,6 @@ const MagneticAnomalyMap = () => {
         </div>
       </main>
 
-      {/* Information Panel */}
       {showInfo && selectedRegion && (
         <div className="info-overlay" onClick={closeInfo} style={{
           position: 'fixed',

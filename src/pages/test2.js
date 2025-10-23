@@ -123,7 +123,6 @@ const Test2 = () => {
   const [score, setScore] = useState(0);
   const [randomizedQuestions, setRandomizedQuestions] = useState([]);
 
-  // Shuffle array function
   const shuffleArray = (array) => {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -133,7 +132,6 @@ const Test2 = () => {
     return shuffled;
   };
 
-  // Randomize questions and their options on component mount
   useEffect(() => {
     const randomized = questions.map(question => {
       const optionsWithIndex = question.options.map((option, index) => ({
@@ -191,7 +189,6 @@ const Test2 = () => {
     setScore(correctAnswers);
     setShowResults(true);
     
-    // Save test result to account if user is logged in
     const scorePercentage = Math.round((correctAnswers / randomizedQuestions.length) * 100);
     saveTestResult(scorePercentage, 'Методи вимірювання', correctAnswers, randomizedQuestions.length, {
       testType: 'Тест 2',
@@ -205,7 +202,6 @@ const Test2 = () => {
     setShowResults(false);
     setScore(0);
     
-    // Re-randomize questions and options
     const randomized = questions.map(question => {
       const optionsWithIndex = question.options.map((option, index) => ({
         text: option,

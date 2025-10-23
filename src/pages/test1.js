@@ -79,7 +79,6 @@ const Test1 = () => {
   const [score, setScore] = useState(0);
   const [randomizedQuestions, setRandomizedQuestions] = useState([]);
 
-  // Shuffle array function
   const shuffleArray = (array) => {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -89,7 +88,6 @@ const Test1 = () => {
     return shuffled;
   };
 
-  // Randomize questions and their options on component mount
   useEffect(() => {
     const randomized = questions.map(question => {
       const optionsWithIndex = question.options.map((option, index) => ({
@@ -147,7 +145,6 @@ const Test1 = () => {
     setScore(correctAnswers);
     setShowResults(true);
     
-    // Save test result to account if user is logged in
     const scorePercentage = Math.round((correctAnswers / randomizedQuestions.length) * 100);
     saveTestResult(scorePercentage, 'Походження магнітного поля', correctAnswers, randomizedQuestions.length, {
       testType: 'Тест 1',
@@ -161,7 +158,6 @@ const Test1 = () => {
     setShowResults(false);
     setScore(0);
     
-    // Re-randomize questions and options
     const randomized = questions.map(question => {
       const optionsWithIndex = question.options.map((option, index) => ({
         text: option,

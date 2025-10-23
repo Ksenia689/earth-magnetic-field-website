@@ -18,7 +18,6 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
 
   useEffect(() => {
-    // Listen for hash changes to navigate between pages
     const handleHashChange = () => {
       const hash = window.location.hash.substring(1);
       if (hash === 'origin') {
@@ -46,10 +45,8 @@ function App() {
       }
     };
 
-    // Check initial hash
     handleHashChange();
     
-    // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange);
     
     return () => {
@@ -101,7 +98,6 @@ function App() {
     <div className="App">
       <NavBar />
       <main className="main-content">
-        {/* Hero Section */}
         <div className="content-container">
           <img 
             src={magneticFieldImage} 
@@ -125,7 +121,6 @@ function App() {
           </div>
         </div>
 
-        {/* Importance Section */}
         <div className="content-container">
           <div className="description-text">
             <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#87ceeb' }}>
@@ -160,7 +155,6 @@ function App() {
           </div>
         </div>
 
-        {/* Research Object and Subject */}
         <div className="content-container">
           <div className="gif-container">
             <img 
@@ -184,7 +178,6 @@ function App() {
           </div>
         </div>
 
-        {/* Modern Research and Innovation */}
         <div className="content-container">
           <div className="description-text">
             <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#87ceeb' }}>
@@ -216,7 +209,6 @@ function App() {
           </div>
         </div>
 
-        {/* Research Directions */}
         <div className="content-container">
           <div className="description-text">
             <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#87ceeb' }}>
@@ -245,7 +237,6 @@ function App() {
           </div>
         </div>
 
-        {/* Call to Action */}
         <div className="content-container">
           <div className="description-text" style={{ textAlign: 'center' }}>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem', color: '#ffd700' }}>

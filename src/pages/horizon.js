@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import NavBar from '../components/NavBar';
-import './topic1.css'; // Using the same CSS as other topic pages
-
+import './topic1.css'; 
 const HorizonSimulator = () => {
   const [height, setHeight] = useState('');
   const [distance, setDistance] = useState(null);
@@ -18,9 +17,9 @@ const HorizonSimulator = () => {
       return;
     }
 
-    // Formula: D = √(2Rh) where R = 6371 km (Earth's radius)
-    const R = 6371; // Earth's radius in km
-    const hInKm = h / 1000; // Convert height from meters to km
+   
+    const R = 6371; 
+    const hInKm = h / 1000;
     const D = Math.sqrt(2 * R * hInKm);
     
     setDistance(D);
