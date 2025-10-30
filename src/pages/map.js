@@ -125,7 +125,7 @@ const MagneticAnomalyMap = () => {
                     style={{
                       position: 'absolute',
                       top: '15%',
-                      left: '15%',
+                      left: '5%',
                       width: '20%',
                       height: '25%',
                       backgroundColor: 'rgba(255, 107, 107, 0.3)',
@@ -159,8 +159,8 @@ const MagneticAnomalyMap = () => {
                     style={{
                       position: 'absolute',
                       top: '10%',
-                      left: '55%',
-                      width: '22%',
+                      left: '65%',
+                      width: '15%',
                       height: '20%',
                       backgroundColor: 'rgba(78, 205, 196, 0.3)',
                       border: '2px solid #4ecdc4',
@@ -192,8 +192,8 @@ const MagneticAnomalyMap = () => {
                     onClick={() => handleRegionClick('south-atlantic')}
                     style={{
                       position: 'absolute',
-                      top: '55%',
-                      left: '25%',
+                      top: '65%',
+                      left: '30%',
                       width: '18%',
                       height: '15%',
                       backgroundColor: 'rgba(69, 183, 209, 0.3)',
@@ -227,8 +227,8 @@ const MagneticAnomalyMap = () => {
                     onClick={() => handleRegionClick('australia')}
                     style={{
                       position: 'absolute',
-                      top: '55%',
-                      left: '70%',
+                      top: '70%',
+                      left: '82%',
                       width: '15%',
                       height: '18%',
                       backgroundColor: 'rgba(255, 159, 67, 0.3)',
@@ -261,10 +261,10 @@ const MagneticAnomalyMap = () => {
                     onClick={() => handleRegionClick('greenland')}
                     style={{
                       position: 'absolute',
-                      top: '8%',
-                      left: '35%',
-                      width: '12%',
-                      height: '15%',
+                      top: '3%',
+                      left: '32%',
+                      width: '10%',
+                      height: '10%',
                       backgroundColor: 'rgba(165, 94, 234, 0.3)',
                       border: '2px solid #a55eea',
                       borderRadius: '8px',
@@ -295,10 +295,10 @@ const MagneticAnomalyMap = () => {
                     onClick={() => handleRegionClick('antarctica')}
                     style={{
                       position: 'absolute',
-                      top: '80%',
+                      top: '90%',
                       left: '20%',
                       width: '60%',
-                      height: '15%',
+                      height: '7%',
                       backgroundColor: 'rgba(38, 222, 129, 0.3)',
                       border: '2px solid #26de81',
                       borderRadius: '8px',
