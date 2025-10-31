@@ -118,6 +118,15 @@ const NavBar = () => {
                   Магнітні аномалії
                 </a>
               </li>
+              <li className="dropdown-item">
+                <a 
+                  href="#aurora" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Полярні сяйва
+                </a>
+              </li>
             </ul>
           </li>
           <li className="navbar-item dropdown" ref={experimentsDropdownRef}>
