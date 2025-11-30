@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/earth-magnetic-field-website/static/css/main.b34c0bba.css",
-    "main.js": "/earth-magnetic-field-website/static/js/main.eda32c97.js",
+    "main.css": "/earth-magnetic-field-website/static/css/main.24cf6e9d.css",
+    "main.js": "/earth-magnetic-field-website/static/js/main.73e0b2a3.js",
     "static/js/453.d7083056.chunk.js": "/earth-magnetic-field-website/static/js/453.d7083056.chunk.js",
     "static/media/Rotating-Earth-Magnetic-Field.gif": "/earth-magnetic-field-website/static/media/Rotating-Earth-Magnetic-Field.aa67e9868545cf8e4da7.gif",
     "static/media/blue.gif": "/earth-magnetic-field-website/static/media/blue.c8db583dc755b35480b8.gif",
@@ -17,12 +17,12 @@
     "static/media/m2.webp": "/earth-magnetic-field-website/static/media/m2.deb6f437ffe9bc5330c7.webp",
     "static/media/map1.avif": "/earth-magnetic-field-website/static/media/map1.68c10250a41d564deafa.avif",
     "index.html": "/earth-magnetic-field-website/index.html",
-    "main.b34c0bba.css.map": "/earth-magnetic-field-website/static/css/main.b34c0bba.css.map",
-    "main.eda32c97.js.map": "/earth-magnetic-field-website/static/js/main.eda32c97.js.map",
+    "main.24cf6e9d.css.map": "/earth-magnetic-field-website/static/css/main.24cf6e9d.css.map",
+    "main.73e0b2a3.js.map": "/earth-magnetic-field-website/static/js/main.73e0b2a3.js.map",
     "453.d7083056.chunk.js.map": "/earth-magnetic-field-website/static/js/453.d7083056.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b34c0bba.css",
-    "static/js/main.eda32c97.js"
+    "static/css/main.24cf6e9d.css",
+    "static/js/main.73e0b2a3.js"
   ]
 }
