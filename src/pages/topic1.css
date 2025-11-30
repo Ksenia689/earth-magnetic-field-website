@@ -999,6 +999,53 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
+/* Specific styling for select dropdowns */
+select.height-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+  padding-right: 3rem;
+}
+
+select.height-input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Style for select options */
+select.height-input option {
+  background: #1e3c72;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+}
+
+select.height-input option:hover {
+  background: #2a5298 !important;
+}
+
+select.height-input option:checked,
+select.height-input option:selected {
+  background: #4CAF50 !important;
+  color: white;
+}
+
 .button-group {
   display: flex;
   gap: 1rem;
@@ -1140,6 +1187,14 @@
 
   .height-input {
     max-width: 100%;
+  }
+
+  select.height-input {
+    max-width: 100%;
+    padding: 0.8rem 2.5rem 0.8rem 1rem;
+    font-size: 1rem;
+    background-size: 1rem;
+    background-position: right 0.8rem center;
   }
 
   .button-group {

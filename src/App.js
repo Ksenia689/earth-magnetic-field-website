@@ -10,6 +10,7 @@ import Test1 from './pages/test1';
 import Test2 from './pages/test2';
 import Test3 from './pages/test3';
 import HorizonSimulator from './pages/horizon';
+import CalculatorRadius from './pages/calculatorRadius';
 import MagneticAnomalyMap from './pages/map';
 import MissionAuroraGame from './pages/game';
 import Account from './pages/account';
@@ -34,6 +35,8 @@ function App() {
         setCurrentPage('history');
       } else if (hash === 'horizon') {
         setCurrentPage('horizon');
+      } else if (hash === 'calculator-radius') {
+        setCurrentPage('calculator-radius');
       } else if (hash === 'magnetic-anomalies-map') {
         setCurrentPage('magnetic-anomalies-map');
       } else if (hash === 'mission-aurora') {
@@ -82,6 +85,10 @@ function App() {
   
   if (currentPage === 'horizon') {
     return <HorizonSimulator />;
+  }
+  
+  if (currentPage === 'calculator-radius') {
+    return <CalculatorRadius />;
   }
   
   if (currentPage === 'magnetic-anomalies-map') {

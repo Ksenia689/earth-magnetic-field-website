@@ -161,6 +161,15 @@ const NavBar = () => {
               </li>
               <li className="dropdown-item">
                 <a 
+                  href="#calculator-radius" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Калькулятор радіуса частинки
+                </a>
+              </li>
+              <li className="dropdown-item">
+                <a 
                   href="#magnetic-anomalies-map" 
                   className="dropdown-link"
                   onClick={closeMenu}
