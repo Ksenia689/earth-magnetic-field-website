@@ -5,6 +5,7 @@ import Topic1 from './pages/topic1';
 import Topic2 from './pages/topic2';
 import Topic3 from './pages/topic3';
 import AuroraPage from './pages/aurora';
+import History from './pages/history';
 import Test1 from './pages/test1';
 import Test2 from './pages/test2';
 import Test3 from './pages/test3';
@@ -29,6 +30,8 @@ function App() {
         setCurrentPage('topic3');
       } else if (hash === 'aurora') {
         setCurrentPage('aurora');
+      } else if (hash === 'history') {
+        setCurrentPage('history');
       } else if (hash === 'horizon') {
         setCurrentPage('horizon');
       } else if (hash === 'magnetic-anomalies-map') {
@@ -71,6 +74,10 @@ function App() {
   
   if (currentPage === 'aurora') {
     return <AuroraPage />;
+  }
+  
+  if (currentPage === 'history') {
+    return <History />;
   }
   
   if (currentPage === 'horizon') {

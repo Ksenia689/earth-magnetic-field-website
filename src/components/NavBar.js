@@ -127,6 +127,15 @@ const NavBar = () => {
                   Полярні сяйва
                 </a>
               </li>
+              <li className="dropdown-item">
+                <a 
+                  href="#history" 
+                  className="dropdown-link"
+                  onClick={closeMenu}
+                >
+                  Історія дослідження
+                </a>
+              </li>
             </ul>
           </li>
           <li className="navbar-item dropdown" ref={experimentsDropdownRef}>
